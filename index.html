@@ -1,0 +1,480 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Website Care Plans (Copy)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: client-facing plan sheet — the four care areas, tier cards with grouped coverage grids, who-does-what, plan finder, full comparison, how we work, add-ons */
+:root{
+  --bg:#f1f5f8; --surface:#ffffff; --ink:#0e2130; --muted:#50667a; --line:#d4dfe7; --chip:#e6eff5;
+  --deep:#0b4a72; --accent:#0a7c84; --on-accent:#ffffff; --shared:#8dbcd8; --you:#e3e9ee;
+  --f-display:"Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a131b; --surface:#101d28; --ink:#e4edf3; --muted:#93a8b9; --line:#203342; --chip:#172a38;
+    --deep:#7cc0e6; --accent:#45c2b9; --on-accent:#04201e; --shared:#2f6688; --you:#1b2c3a; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a131b; --surface:#101d28; --ink:#e4edf3; --muted:#93a8b9; --line:#203342; --chip:#172a38;
+  --deep:#7cc0e6; --accent:#45c2b9; --on-accent:#04201e; --shared:#2f6688; --you:#1b2c3a; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:20px;padding-block:40px 64px}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-0.01em}
+h1{font-size:clamp(2.1rem,5vw,3.3rem);font-weight:800;line-height:1.05}
+h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;line-height:1.15}
+h3{font-size:1.3rem;font-weight:700}
+h4{font-size:1rem;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.lead{font-size:1.08rem;color:var(--muted);max-width:64ch}
+.icon{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+section{margin-top:64px;display:grid;gap:20px}
+.sec-head{display:grid;gap:8px;max-width:70ch}
+.sec-head p{color:var(--muted)}
+.hero{display:grid;gap:16px}
+
+/* four areas */
+.areas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.areas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.areas{grid-template-columns:1fr}}
+.area{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:10px;align-content:start;min-width:0}
+.area .ah{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.area .ah span{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em}
+.area p{font-size:.86rem;color:var(--muted)}
+.area ul{list-style:none;margin:0;padding:0;display:grid;gap:5px;font-size:.88rem}
+.area li{display:flex;gap:8px;align-items:center}
+.area li .icon{color:var(--accent);font-size:16px}
+
+/* key */
+.key{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:var(--muted)}
+.key span{display:inline-flex;gap:7px;align-items:center}
+.sw{width:16px;height:16px;border-radius:4px;display:inline-block}
+.sw.us{background:var(--accent)}
+.sw.shared{background:linear-gradient(135deg,var(--accent) 50%,var(--shared) 50%)}
+.sw.you{background:var(--you);border:1px solid var(--line)}
+
+/* tiers */
+.tiers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:stretch}
+@media (max-width:1060px){.tiers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.tiers{grid-template-columns:1fr}}
+.tier{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:14px;grid-template-rows:auto auto auto auto auto 1fr;min-width:0;position:relative}
+.tier.rec{border:2px solid var(--accent)}
+.badge{position:absolute;top:-11px;left:18px;background:var(--accent);color:var(--on-accent);font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.tier .tag{color:var(--muted);font-size:.92rem;margin-top:2px}
+.price{display:flex;align-items:baseline;gap:8px;font-family:var(--f-display)}
+.price b{font-size:1.35rem;font-weight:800;color:var(--deep);letter-spacing:.04em}
+.price b .dim{color:var(--line)}
+.price span{font-family:var(--f-body);font-size:.82rem;color:var(--muted)}
+.cov{display:grid;gap:4px}
+.srow{display:grid;grid-template-columns:76px repeat(4,minmax(0,1fr));gap:3px;align-items:center}
+.srow > span{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+.srow i{height:26px;border-radius:5px;display:grid;place-items:center;font-size:13px}
+.us-bg{background:var(--accent);color:var(--on-accent)}
+.shared-bg{background:linear-gradient(135deg,var(--accent) 50%,var(--shared) 50%);color:var(--on-accent)}
+.you-bg{background:var(--you);color:var(--muted)}
+.cov-cap{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);letter-spacing:.04em}
+.for{font-size:.88rem;background:var(--chip);border-radius:8px;padding:8px 10px}
+.for b{font-weight:600}
+.inc{list-style:none;padding:0;margin:0;display:grid;gap:6px;align-content:start;font-size:.9rem}
+.inc li{display:flex;gap:8px;align-items:flex-start}
+.inc li .icon{color:var(--accent);margin-top:4px;font-size:14px}
+
+/* tables */
+.scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+table{border-collapse:collapse;width:100%}
+.who{min-width:760px}
+.cmp{min-width:840px}
+.who th,.who td,.cmp th,.cmp td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line)}
+.who tr:last-child td,.cmp tr:last-child td{border-bottom:0}
+th{font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:500}
+th.rec,td.rec{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+tr.grp td{background:var(--chip);font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--deep);font-weight:500;padding-block:8px}
+tr.grp td span{text-transform:none;letter-spacing:0;font-family:var(--f-body);color:var(--muted);font-size:.8rem;margin-left:8px}
+.rowname{display:inline-flex;gap:9px;align-items:center;font-weight:600;font-size:.9rem;white-space:nowrap}
+.rowname .icon{color:var(--accent);font-size:18px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.pill.us{background:var(--accent);color:var(--on-accent);font-weight:600}
+.pill.shared{background:var(--shared);color:var(--ink)}
+.pill.you{background:var(--you);color:var(--muted)}
+.cmp td{font-size:.88rem}
+.cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
+.cmp tr.comp td{font-weight:600;padding-top:14px;border-bottom:0}
+.cmp tr.feat td:first-child{padding-left:40px;color:var(--ink)}
+.yes{color:var(--accent);font-size:18px}
+.no{color:var(--line);font-size:18px}
+.txt{font-size:.82rem;font-weight:500}
+
+/* finder */
+.finder{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:880px){.finder{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:14px;align-content:start;min-width:0}
+.panel h3{font-size:1.05rem}
+.tg-group{display:grid;gap:8px}
+.tg-group h4{font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--deep);font-weight:500}
+.toggles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (max-width:480px){.toggles{grid-template-columns:1fr}}
+.tg{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;font-size:.88rem;user-select:none;min-width:0;position:relative}
+.tg input{position:absolute;opacity:0;pointer-events:none}
+.tg .box{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--muted);display:grid;place-items:center;flex:none;color:transparent;font-size:13px}
+.tg .ic{color:var(--accent);font-size:17px;display:inline-flex}
+.tg:has(input:checked){border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--surface))}
+.tg:has(input:checked) .box{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tg:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.result{font-family:var(--f-display);font-size:1.7rem;font-weight:800;color:var(--deep);line-height:1.1}
+.result-sub{color:var(--muted);font-size:.92rem}
+.bars{display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:92px 1fr 44px;gap:10px;align-items:center;font-size:.85rem}
+.bar .track{height:12px;border-radius:999px;background:var(--you);overflow:hidden}
+.bar .fill{height:100%;border-radius:999px;background:var(--accent);transition:width .35s ease}
+.bar.best .name{font-weight:700;color:var(--accent)}
+.bar .pct{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right;color:var(--muted)}
+.gaps{font-size:.85rem;color:var(--muted)}
+
+/* how we work, add-ons */
+.how{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.how{grid-template-columns:1fr}}
+.hw{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.hw .tile{width:44px;height:44px;border-radius:12px;background:var(--chip);color:var(--deep);display:grid;place-items:center;font-size:22px;flex:none}
+.hw h4{margin-bottom:4px}
+.hw p{color:var(--muted);font-size:.9rem}
+.addons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:860px){.addons{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.addons{grid-template-columns:1fr}}
+.addon{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:.9rem;min-width:0}
+.addon .icon{font-size:22px;color:var(--deep);margin-top:2px}
+.addon b{display:block;font-weight:600}
+.addon span{color:var(--muted)}
+footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted);display:grid;gap:4px}
+@media (prefers-reduced-motion:reduce){.bar .fill{transition:none}}
+.lang{display:inline-flex;justify-self:end;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}.lang button{font:500 .75rem var(--f-mono);padding:6px 14px;border:0;background:none;color:var(--muted);cursor:pointer}.lang button[aria-pressed=true]{background:var(--accent);color:var(--on-accent)}.lang button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="7" rx="2"/><path d="M6 6.5h.01M6 17.5h.01"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z"/><path d="M19 3v4M17 5h4M18 17v3M16.5 18.5h3"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M7 21h10M4 7h16"/><path d="m7 7-3 7a3 3 0 0 0 6 0z"/><path d="m17 7-3 7a3 3 0 0 0 6 0z"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5"/><path d="m11 12 10-10"/><path d="m16 7 3 3"/><path d="m19 4 2 2"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5M9 8V2M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.8 4H7.2a2 2 0 0 0-1.7 1.1z"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.3 19a10 10 0 1 1 17.4 0"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6.5 8-6.5s8 2.5 8 6.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c2.4.6 4 2.3 4 5.2"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.1 10.4A6 6 0 1 1 10.3 18"/><path d="M7 6h1v4"/></symbol>
+  <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.4 2.4 0 0 1 0-3.4l2.6-2.6a2.4 2.4 0 0 1 3.4 0z"/><path d="m14.5 12.5 2-2M11.5 9.5l2-2M8.5 6.5l2-2M17.5 15.5l2-2"/></symbol>
+</svg>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="lang" role="group" aria-label="Language"><button type="button" data-l="en" aria-pressed="true">EN</button><button type="button" data-l="id" aria-pressed="false">ID</button></div>
+    <span class="eyebrow">Website care plans · for Indonesian businesses</span>
+    <h1>Choose how much of your website we look after.</h1>
+    <p class="lead">A website needs sixteen kinds of ongoing care, in four areas. You can run some of it yourself or hand all of it to us. Every plan shows exactly who handles what, and on every plan your business owns its accounts, code and content.</p>
+    <div class="areas" id="areas"></div>
+    <div class="key">
+      <span><i class="sw us"></i>We handle it</span>
+      <span><i class="sw shared"></i>Shared: we set it up and guide, you act</span>
+      <span><i class="sw you"></i>You handle it</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="tiers" id="tiers"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Who does what</span>
+      <h2>Responsibility under each plan</h2>
+      <p>Nothing on a website looks after itself. If a plan does not cover an area, that area stays your responsibility.</p>
+    </div>
+    <div class="scroll"><table class="who" id="who"></table></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Plan finder</span>
+      <h2>Tick what you want off your plate</h2>
+      <p>The bars show how much of your list each plan covers. Shared areas count as half.</p>
+    </div>
+    <div class="finder">
+      <div class="panel">
+        <h3>I want you to handle</h3>
+        <div id="toggles" style="display:grid;gap:16px"></div>
+      </div>
+      <div class="panel" aria-live="polite">
+        <span class="eyebrow">Best fit</span>
+        <div class="result" id="result"></div>
+        <p class="result-sub" id="resultSub"></p>
+        <div class="bars" id="bars"></div>
+        <p class="gaps" id="gaps"></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Full comparison</span>
+      <h2>What each plan includes</h2>
+    </div>
+    <div class="scroll"><table class="cmp" id="cmp"></table></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">How we work</span>
+      <h2>The same terms on every plan</h2>
+    </div>
+    <div class="how">
+      <div class="hw"><div class="tile"><svg class="icon"><use href="#i-key"/></svg></div><div><h4>You own everything</h4><p>Your .id domain, hosting, Google profile, analytics, code and content are registered to your business, and the agreement is in Bahasa Indonesia and English. We work through access you grant, and you can hand it to another provider at any time with our handover pack and site runbook.</p></div></div>
+      <div class="hw"><div class="tile"><svg class="icon"><use href="#i-message"/></svg></div><div><h4>One place for requests</h4><p>Send every request through one agreed channel, such as a WhatsApp group or email, and each one is logged. Response times follow your plan, and outages are handled under its incident response.</p></div></div>
+      <div class="hw"><div class="tile"><svg class="icon"><use href="#i-ruler"/></svg></div><div><h4>Edits versus new work</h4><p>Included hours cover changes to existing pages: text, images, hours, prices and notices. New pages, features and redesigns are quoted and approved before work starts.</p></div></div>
+      <div class="hw"><div class="tile"><svg class="icon"><use href="#i-coins"/></svg></div><div><h4>No surprise bills</h4><p>Prices are in rupiah. Domains, hosting, licences and other services are either paid by you directly or billed through us, each listed with its cost and renewal date. Tax treatment, including PPh 23, is stated in your proposal.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Add to any plan</span>
+      <h2>Extras, priced per job</h2>
+    </div>
+    <div class="addons">
+      <div class="addon"><svg class="icon"><use href="#i-globe"/></svg><div><b>Extra defensive domains</b><span>Typo and spelling variants, redirected and locked against email spoofing.</span></div></div>
+      <div class="addon"><svg class="icon"><use href="#i-pen"/></svg><div><b>Content hours</b><span>Changes beyond your plan's monthly allowance.</span></div></div>
+      <div class="addon"><svg class="icon"><use href="#i-calendar"/></svg><div><b>Booking, WhatsApp or CRM connection</b><span>Send enquiries straight into your booking system, CRM or WhatsApp Business.</span></div></div>
+      <div class="addon"><svg class="icon"><use href="#i-eye"/></svg><div><b>Accessibility audit</b><span>Full WCAG 2.2 AA review with a prioritised fix list.</span></div></div>
+      <div class="addon"><svg class="icon"><use href="#i-search"/></svg><div><b>One-off SEO audit</b><span>Technical, content and local search review with a 90-day action plan.</span></div></div>
+      <div class="addon"><svg class="icon"><use href="#i-alert"/></svg><div><b>Emergency incident response</b><span>Clean-up and restore after a hack, for sites not on a plan that covers it.</span></div></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Dots show relative monthly cost. Exact pricing in rupiah, hours and response times are confirmed in your proposal.</span>
+    <span>Handover clients can move onto any plan later. Every plan starts with a short health check of the site.</span>
+  </footer>
+</main>
+
+<script>
+const groups = [
+  {id:"reach", name:"Reach", plain:"Being found and shared", items:[
+    {id:"seo",icon:"search",name:"Google search (SEO)"},
+    {id:"ai",icon:"sparkles",name:"AI assistant visibility"},
+    {id:"social",icon:"share",name:"Social media & WhatsApp"},
+    {id:"content",icon:"pen",name:"Content upkeep"}]},
+  {id:"experience", name:"Experience", plain:"Visitors and enquiries", items:[
+    {id:"forms",icon:"inbox",name:"Forms & enquiries"},
+    {id:"perf",icon:"gauge",name:"Speed & device testing"},
+    {id:"privacy",icon:"scale",name:"Privacy & accessibility"},
+    {id:"mon",icon:"activity",name:"Monitoring & reports"}]},
+  {id:"protection", name:"Protection", plain:"Keeping it safe", items:[
+    {id:"code",icon:"code",name:"Software updates"},
+    {id:"cve",icon:"package",name:"Vulnerability patching"},
+    {id:"sec",icon:"shield",name:"Cybersecurity"},
+    {id:"cont",icon:"book",name:"Backup plan & runbook"}]},
+  {id:"foundations", name:"Foundations", plain:"What it all runs on", items:[
+    {id:"own",icon:"key",name:"Account ownership & access"},
+    {id:"dns",icon:"globe",name:"Domains & email security"},
+    {id:"host",icon:"server",name:"Hosting & backups"},
+    {id:"integ",icon:"plug",name:"Integrations & licences"}]}
+];
+const comps = groups.flatMap(g=>g.items);
+const C = Object.fromEntries(comps.map(c=>[c.id,c]));
+
+const all = v => Object.fromEntries(comps.map(c=>[c.id,v]));
+const tiers = [
+  {id:"handover",name:"Handover",tag:"We build it, you run it.",cost:"One-off",costNote:"build fee only",
+   forWho:"Teams with their own IT or web person.",
+   inc:["Launch-ready site, accounts in your name","Security headers, basic SEO and social previews","Site runbook and admin access handed over","30 days of post-launch fixes"],
+   r:all("you")},
+  {id:"essentials",name:"Essentials",tag:"Safe and online.",cost:1,costNote:"per month",
+   forWho:"Brochure sites that rarely change.",
+   inc:["Domains, hosting and daily backups","Software updates and vulnerability patching","Form delivery checks and uptime alerts","Shared access vault and site runbook","30 min of content edits a month"],
+   r:{...all("you"),own:"us",dns:"us",host:"us",integ:"shared",code:"us",cve:"us",sec:"shared",cont:"us",forms:"us",perf:"shared",mon:"shared",content:"shared",social:"shared"}},
+  {id:"growth",name:"Growth",tag:"Safe, current and found.",cost:2,costNote:"per month",rec:true,
+   forWho:"Businesses that get customers from Google.",
+   inc:["Everything in Essentials","Firewall and full security hardening","SEO in both languages, Google Business Profile","Integrations and licences managed","Analytics, monthly report, 2 hrs of edits"],
+   r:{...all("us"),ai:"shared",social:"shared",content:"shared",privacy:"shared"}},
+  {id:"complete",name:"Complete",tag:"Fully managed for you.",cost:3,costNote:"per month",
+   forWho:"Sites that are a main sales channel, or regulated industries.",
+   inc:["Everything in Growth","AI assistant visibility checks","Privacy, accessibility and content reviews","Enquiries routed to WhatsApp, CRM or booking","Same-day incident response, 5 hrs of edits"],
+   r:all("us")}
+];
+const label = {us:"We handle",shared:"Shared",you:"You handle"};
+const ico = (n,cls="icon") => `<svg class="${cls}"><use href="#i-${n}"/></svg>`;
+const costStr = c => typeof c==="number" ? `${"●".repeat(c)}<span class="dim">${"●".repeat(3-c)}</span>` : c;
+const score = (t,ids) => ids.reduce((s,id)=>s+(t.r[id]==="us"?1:t.r[id]==="shared"?.5:0),0);
+const half = x => String(x).replace(".5","½");
+
+document.getElementById("areas").innerHTML = groups.map(g=>`
+  <div class="area"><div class="ah"><h4>${g.name}</h4><span>${g.items.length} AREAS</span></div><p>${g.plain}</p>
+  <ul>${g.items.map(c=>`<li>${ico(c.icon)}${c.name}</li>`).join("")}</ul></div>`).join("");
+
+document.getElementById("tiers").innerHTML = tiers.map(t=>{
+  const covered = score(t, comps.map(c=>c.id));
+  return `<article class="tier ${t.rec?'rec':''}">
+    ${t.rec?'<span class="badge">Most chosen</span>':''}
+    <div><h3>${t.name}</h3><p class="tag">${t.tag}</p></div>
+    <div class="price"><b>${costStr(t.cost)}</b><span>${t.costNote}</span></div>
+    <div class="cov" aria-label="${t.name} covers ${covered} of 16 areas">
+      ${groups.map(g=>`<div class="srow"><span>${g.name}</span>${g.items.map(c=>`<i class="${t.r[c.id]}-bg" title="${c.name}: ${label[t.r[c.id]]}">${ico(c.icon)}</i>`).join("")}</div>`).join("")}
+    </div>
+    <p class="cov-cap">WE COVER ${half(covered)} OF 16 AREAS</p>
+    <div class="for"><b>Best for:</b> ${t.forWho}</div>
+    <ul class="inc">${t.inc.map(i=>`<li>${ico("check")}<span>${i}</span></li>`).join("")}</ul>
+  </article>`;
+}).join("");
+
+const head = first => `<thead><tr><th>${first}</th>${tiers.map(t=>`<th class="${t.rec?'rec':''}">${t.name}</th>`).join("")}</tr></thead>`;
+document.getElementById("who").innerHTML = head("Area") + "<tbody>" +
+  groups.map(g=>`<tr class="grp"><td colspan="5">${g.name}<span>${g.plain}</span></td></tr>` +
+    g.items.map(c=>`<tr><td><span class="rowname">${ico(c.icon)}${c.name}</span></td>${tiers.map(t=>{
+      const v=t.r[c.id], i = v==="us"?"check":v==="shared"?"users":"user";
+      return `<td class="${t.rec?'rec':''}"><span class="pill ${v}">${ico(i)}${label[v]}</span></td>`;
+    }).join("")}</tr>`).join("")).join("") + "</tbody>";
+
+// comparison: [feature, handover, essentials, growth, complete]
+const Y=true, N=false;
+const F = {
+  seo:[["Technical SEO and structured data","At launch",N,Y,Y],["Google Business Profile and Maps upkeep",N,N,Y,Y],["Content and keyword plan",N,N,"Quarterly","Monthly"]],
+  ai:[["AI crawler policy and business facts",N,N,Y,Y],["Check answers in ChatGPT, Gemini, Perplexity",N,N,N,"Monthly"]],
+  social:[["WhatsApp chat button and link previews","At launch",Y,Y,Y],["Instagram and TikTok profile links","At launch",N,Y,Y],["Campaign pages and link tracking",N,N,N,Y]],
+  content:[["Content edits included each month",N,"30 min","2 hrs","5 hrs"],["Accuracy review: prices, availability, staff",N,N,"Quarterly","Monthly"],["Bahasa Indonesia and English kept in sync",N,N,Y,Y],["Image and font licence check","At launch",N,Y,Y]],
+  forms:[["Reliable form delivery and spam filtering","At launch",Y,Y,Y],["Monthly test enquiry",N,Y,Y,Y],["Enquiries routed to WhatsApp, CRM or booking system",N,N,N,Y]],
+  perf:[["Speed check after updates",N,"Basic",Y,Y],["Testing on Android, iPhone and mobile data","At launch",N,"Quarterly","Monthly"]],
+  privacy:[["Privacy policy and consent under the PDP Law","At launch",N,"Yearly review",Y],["Data breach notice within 3 × 24 hours",N,N,"Guided",Y],["Accessibility checks (WCAG 2.2 AA)",N,N,N,"Quarterly"]],
+  mon:[["Uptime and certificate alerts",N,Y,Y,Y],["Analytics and enquiry tracking",N,N,Y,Y],["Report",N,"Quarterly","Monthly","Monthly + call"]],
+  code:[["Framework and plugin updates",N,Y,Y,Y],["Staging site to preview changes",N,N,Y,Y]],
+  cve:[["Automated vulnerability scanning",N,Y,Y,Y],["Critical patch applied within",N,"72 hrs","48 hrs","24 hrs"]],
+  sec:[["Security headers and hardening","At launch",Y,Y,Y],["Firewall and bot protection",N,"Basic",Y,Y],["Incident response",N,"Best effort","Next business day","Same day"]],
+  cont:[["Site runbook","At launch","Kept current","Kept current","Kept current"],["Restore drill from the runbook",N,"Yearly","Quarterly","Quarterly"],["Named backup developer",N,N,Y,Y]],
+  own:[["Accounts registered to your business",Y,Y,Y,Y],["Shared access vault",N,Y,Y,Y],["Access review when staff change",N,"On request",Y,Y]],
+  dns:[[".id domain renewals and DNS",N,Y,Y,Y],["Email security: SPF, DKIM, DMARC","At launch",Y,Y,Y],["Defensive domains and redirects",N,N,"Up to 2","Up to 6"]],
+  host:[["Managed hosting, HTTPS and CDN",N,Y,Y,Y],["Daily off-site backups",N,Y,Y,Y]],
+  integ:[["Integrations kept working (booking, WhatsApp, payments)",N,"Best effort",Y,Y],["Licence and subscription renewals tracked",N,Y,Y,Y]]
+};
+const cell = v => v===true ? ico("check","icon yes") : v===false ? ico("minus","icon no") : `<span class="txt">${v}</span>`;
+document.getElementById("cmp").innerHTML = head("Feature") + "<tbody>" +
+  groups.map(g=>`<tr class="grp"><td colspan="5">${g.name}<span>${g.plain}</span></td></tr>` +
+    g.items.map(c=>`<tr class="comp"><td colspan="5"><span class="rowname">${ico(c.icon)}${c.name}</span></td></tr>` +
+      F[c.id].map(([f,...vals])=>`<tr class="feat"><td>${f}</td>${vals.map((v,i)=>`<td class="${tiers[i].rec?'rec':''}">${cell(v)}</td>`).join("")}</tr>`).join("")
+    ).join("")).join("") + "</tbody>";
+
+// finder
+const defaults = new Set(["own","dns","host","cve","sec","forms","seo"]);
+document.getElementById("toggles").innerHTML = groups.map(g=>`
+  <div class="tg-group"><h4>${g.name} · ${g.plain}</h4><div class="toggles">${g.items.map(c=>`
+    <label class="tg" for="pick-${c.id}"><input type="checkbox" id="pick-${c.id}" value="${c.id}" ${defaults.has(c.id)?"checked":""}>
+    <span class="box">${ico("check")}</span><span class="ic">${ico(c.icon)}</span><span>${c.name}</span></label>`).join("")}</div></div>`).join("");
+
+function update(){
+  const picked = [...document.querySelectorAll("#toggles input:checked")].map(i=>i.value);
+  const pct = tiers.map(t=> picked.length ? Math.round(score(t,picked)/picked.length*100) : 0);
+  const res=document.getElementById("result"), sub=document.getElementById("resultSub"), gaps=document.getElementById("gaps");
+  let best;
+  if(!picked.length){
+    best=0; res.textContent="Handover";
+    sub.textContent="Nothing ticked, so you would run the site yourself after launch.";
+    gaps.textContent="";
+  } else {
+    best = tiers.findIndex((t,i)=>pct[i]===100);
+    res.textContent = tiers[best].name;
+    sub.textContent = `The smallest plan that fully handles all ${picked.length} area${picked.length>1?"s":""} you ticked.`;
+    const lower = best>1 ? tiers[best-1] : null;
+    if(lower){
+      const missing = picked.filter(id=>lower.r[id]!=="us").map(id=>C[id].name);
+      gaps.textContent = `On ${lower.name}, you would still share or handle: ${missing.join(", ")}.`;
+    } else gaps.textContent = "";
+  }
+  document.getElementById("bars").innerHTML = tiers.map((t,i)=>`
+    <div class="bar ${i===best?'best':''}"><span class="name">${t.name}</span>
+    <div class="track"><div class="fill" style="width:${pct[i]}%"></div></div><span class="pct">${pct[i]}%</span></div>`).join("");
+}
+document.getElementById("toggles").addEventListener("change",update);
+update();
+// ---- language toggle (EN / ID): exact-text dictionary applied to rendered text ----
+const D={
+"Website Care Plans (Copy)":"Paket Perawatan Website (Salinan)","Language":"Bahasa",
+"Website care plans · for Indonesian businesses":"Paket perawatan website · untuk bisnis Indonesia",
+"Choose how much of your website we look after.":"Pilih seberapa banyak perawatan website yang kami tangani.",
+"A website needs sixteen kinds of ongoing care, in four areas. You can run some of it yourself or hand all of it to us. Every plan shows exactly who handles what, and on every plan your business owns its accounts, code and content.":"Sebuah website membutuhkan enam belas jenis perawatan berkelanjutan dalam empat area. Anda bisa mengurus sebagian sendiri atau menyerahkan semuanya kepada kami. Setiap paket menunjukkan dengan jelas siapa mengerjakan apa, dan di semua paket, akun, kode, dan konten tetap dimiliki bisnis Anda.",
+"We handle it":"Kami tangani","Shared: we set it up and guide, you act":"Bersama: kami siapkan dan arahkan, Anda yang menjalankan","You handle it":"Anda tangani",
+"We handle":"Kami tangani","Shared":"Bersama","You handle":"Anda tangani",
+"Reach":"Jangkauan","Being found and shared":"Ditemukan dan dibagikan","Experience":"Pengalaman","Visitors and enquiries":"Pengunjung dan pertanyaan","Protection":"Perlindungan","Keeping it safe":"Menjaga tetap aman","Foundations":"Fondasi","What it all runs on":"Landasan semuanya",
+"Google search (SEO)":"Pencarian Google (SEO)","AI assistant visibility":"Visibilitas di asisten AI","Social media & WhatsApp":"Media sosial & WhatsApp","Content upkeep":"Pemeliharaan konten","Forms & enquiries":"Formulir & pertanyaan","Speed & device testing":"Kecepatan & uji perangkat","Privacy & accessibility":"Privasi & aksesibilitas","Monitoring & reports":"Pemantauan & laporan","Software updates":"Pembaruan perangkat lunak","Vulnerability patching":"Penambalan celah keamanan","Cybersecurity":"Keamanan siber","Backup plan & runbook":"Rencana cadangan & runbook","Account ownership & access":"Kepemilikan & akses akun","Domains & email security":"Domain & keamanan email","Hosting & backups":"Hosting & cadangan","Integrations & licences":"Integrasi & lisensi",
+"We build it, you run it.":"Kami bangun, Anda jalankan.","Safe and online.":"Aman dan online.","Safe, current and found.":"Aman, terkini, dan mudah ditemukan.","Fully managed for you.":"Dikelola penuh untuk Anda.",
+"One-off":"Sekali bayar","build fee only":"hanya biaya pembuatan","per month":"per bulan","Most chosen":"Paling banyak dipilih","Best for:":"Cocok untuk:",
+"Teams with their own IT or web person.":"Tim yang punya staf IT atau web sendiri.","Brochure sites that rarely change.":"Website profil yang jarang berubah.","Businesses that get customers from Google.":"Bisnis yang mendapat pelanggan dari Google.","Sites that are a main sales channel, or regulated industries.":"Website sebagai kanal penjualan utama, atau industri yang diatur regulasi.",
+"Launch-ready site, accounts in your name":"Website siap tayang, akun atas nama Anda","Security headers, basic SEO and social previews":"Header keamanan, SEO dasar, dan pratinjau sosial","Site runbook and admin access handed over":"Runbook dan akses admin diserahkan","30 days of post-launch fixes":"Perbaikan 30 hari setelah peluncuran",
+"Domains, hosting and daily backups":"Domain, hosting, dan cadangan harian","Software updates and vulnerability patching":"Pembaruan perangkat lunak dan penambalan celah","Form delivery checks and uptime alerts":"Cek pengiriman formulir dan peringatan uptime","Shared access vault and site runbook":"Brankas akses bersama dan runbook","30 min of content edits a month":"30 menit edit konten per bulan",
+"Everything in Essentials":"Semua yang ada di Essentials","Firewall and full security hardening":"Firewall dan pengamanan menyeluruh","SEO in both languages, Google Business Profile":"SEO dalam dua bahasa, Google Business Profile","Integrations and licences managed":"Integrasi dan lisensi dikelola","Analytics, monthly report, 2 hrs of edits":"Analitik, laporan bulanan, 2 jam edit",
+"Everything in Growth":"Semua yang ada di Growth","AI assistant visibility checks":"Pengecekan visibilitas di asisten AI","Privacy, accessibility and content reviews":"Tinjauan privasi, aksesibilitas, dan konten","Enquiries routed to WhatsApp, CRM or booking":"Pertanyaan diteruskan ke WhatsApp, CRM, atau pemesanan","Same-day incident response, 5 hrs of edits":"Respons insiden hari yang sama, 5 jam edit",
+"Who does what":"Siapa mengerjakan apa","Responsibility under each plan":"Tanggung jawab di setiap paket","Nothing on a website looks after itself. If a plan does not cover an area, that area stays your responsibility.":"Tidak ada bagian website yang mengurus dirinya sendiri. Jika sebuah paket tidak mencakup suatu area, area itu tetap tanggung jawab Anda.","Area":"Area","Feature":"Fitur",
+"Plan finder":"Pencari paket","Tick what you want off your plate":"Centang yang ingin Anda serahkan kepada kami","The bars show how much of your list each plan covers. Shared areas count as half.":"Grafik batang menunjukkan seberapa banyak daftar Anda yang tercakup di tiap paket. Area bersama dihitung setengah.","I want you to handle":"Saya ingin Anda menangani","Best fit":"Paling sesuai",
+"Nothing ticked, so you would run the site yourself after launch.":"Belum ada yang dicentang, jadi Anda akan mengelola website sendiri setelah peluncuran.",
+"Full comparison":"Perbandingan lengkap","What each plan includes":"Isi setiap paket",
+"Technical SEO and structured data":"SEO teknis dan data terstruktur","Google Business Profile and Maps upkeep":"Pemeliharaan Google Business Profile dan Maps","Content and keyword plan":"Rencana konten dan kata kunci","AI crawler policy and business facts":"Kebijakan crawler AI dan fakta bisnis","Check answers in ChatGPT, Gemini, Perplexity":"Cek jawaban di ChatGPT, Gemini, Perplexity","WhatsApp chat button and link previews":"Tombol chat WhatsApp dan pratinjau tautan","Instagram and TikTok profile links":"Tautan profil Instagram dan TikTok","Campaign pages and link tracking":"Halaman kampanye dan pelacakan tautan","Content edits included each month":"Edit konten termasuk tiap bulan","Accuracy review: prices, availability, staff":"Tinjauan akurasi: harga, ketersediaan, staf","Bahasa Indonesia and English kept in sync":"Bahasa Indonesia dan Inggris selalu sinkron","Image and font licence check":"Cek lisensi gambar dan font","Reliable form delivery and spam filtering":"Pengiriman formulir andal dan penyaringan spam","Monthly test enquiry":"Uji pertanyaan bulanan","Enquiries routed to WhatsApp, CRM or booking system":"Pertanyaan diteruskan ke WhatsApp, CRM, atau sistem pemesanan","Speed check after updates":"Cek kecepatan setelah pembaruan","Testing on Android, iPhone and mobile data":"Uji di Android, iPhone, dan data seluler","Privacy policy and consent under the PDP Law":"Kebijakan privasi dan persetujuan sesuai UU PDP","Data breach notice within 3 × 24 hours":"Pemberitahuan kebocoran data dalam 3 × 24 jam","Accessibility checks (WCAG 2.2 AA)":"Pengecekan aksesibilitas (WCAG 2.2 AA)","Uptime and certificate alerts":"Peringatan uptime dan sertifikat","Analytics and enquiry tracking":"Analitik dan pelacakan pertanyaan","Framework and plugin updates":"Pembaruan framework dan plugin","Staging site to preview changes":"Situs staging untuk pratinjau perubahan","Automated vulnerability scanning":"Pemindaian celah otomatis","Critical patch applied within":"Patch kritis dipasang dalam","Security headers and hardening":"Header keamanan dan pengamanan","Firewall and bot protection":"Firewall dan perlindungan bot","Incident response":"Respons insiden","Site runbook":"Runbook website","Restore drill from the runbook":"Latihan pemulihan dari runbook","Named backup developer":"Developer cadangan yang ditunjuk","Accounts registered to your business":"Akun terdaftar atas nama bisnis Anda","Shared access vault":"Brankas akses bersama","Access review when staff change":"Tinjauan akses saat staf berganti",".id domain renewals and DNS":"Perpanjangan domain .id dan DNS","Email security: SPF, DKIM, DMARC":"Keamanan email: SPF, DKIM, DMARC","Defensive domains and redirects":"Domain defensif dan pengalihan","Managed hosting, HTTPS and CDN":"Hosting terkelola, HTTPS, dan CDN","Daily off-site backups":"Cadangan harian di luar lokasi","Integrations kept working (booking, WhatsApp, payments)":"Integrasi tetap berfungsi (pemesanan, WhatsApp, pembayaran)","Licence and subscription renewals tracked":"Perpanjangan lisensi dan langganan dipantau",
+"At launch":"Saat peluncuran","Quarterly":"Per kuartal","Monthly":"Bulanan","30 min":"30 mnt","Basic":"Dasar","Best effort":"Upaya terbaik","Next business day":"Hari kerja berikutnya","Same day":"Hari yang sama","Kept current":"Selalu terbaru","Yearly":"Tahunan","On request":"Sesuai permintaan","Guided":"Dipandu","Yearly review":"Tinjauan tahunan","Up to 2":"Hingga 2","Up to 6":"Hingga 6","Monthly + call":"Bulanan + panggilan","Report":"Laporan",
+"How we work":"Cara kami bekerja","The same terms on every plan":"Ketentuan yang sama di setiap paket",
+"You own everything":"Anda memiliki semuanya","Your .id domain, hosting, Google profile, analytics, code and content are registered to your business, and the agreement is in Bahasa Indonesia and English. We work through access you grant, and you can hand it to another provider at any time with our handover pack and site runbook.":"Domain .id, hosting, profil Google, analitik, kode, dan konten Anda terdaftar atas nama bisnis Anda, dan perjanjian dibuat dalam Bahasa Indonesia dan Inggris. Kami bekerja lewat akses yang Anda berikan, dan Anda bisa menyerahkannya ke penyedia lain kapan saja dengan paket serah terima dan runbook kami.",
+"One place for requests":"Satu pintu untuk permintaan","Send every request through one agreed channel, such as a WhatsApp group or email, and each one is logged. Response times follow your plan, and outages are handled under its incident response.":"Kirim setiap permintaan lewat satu kanal yang disepakati, misalnya grup WhatsApp atau email, dan semuanya dicatat. Waktu respons mengikuti paket Anda, dan gangguan ditangani sesuai respons insiden paket tersebut.",
+"Edits versus new work":"Edit versus pekerjaan baru","Included hours cover changes to existing pages: text, images, hours, prices and notices. New pages, features and redesigns are quoted and approved before work starts.":"Jam yang termasuk mencakup perubahan pada halaman yang ada: teks, gambar, jam buka, harga, dan pengumuman. Halaman baru, fitur, dan desain ulang diberi penawaran dan disetujui sebelum dikerjakan.",
+"No surprise bills":"Tanpa tagihan mengejutkan","Prices are in rupiah. Domains, hosting, licences and other services are either paid by you directly or billed through us, each listed with its cost and renewal date. Tax treatment, including PPh 23, is stated in your proposal.":"Harga dalam rupiah. Domain, hosting, lisensi, dan layanan lain dibayar langsung oleh Anda atau ditagihkan lewat kami, masing-masing dicantumkan dengan biaya dan tanggal perpanjangannya. Perlakuan pajak, termasuk PPh 23, tercantum dalam proposal Anda.",
+"Add to any plan":"Tambahan untuk paket apa pun","Extras, priced per job":"Layanan tambahan, harga per pekerjaan",
+"Extra defensive domains":"Domain defensif tambahan","Typo and spelling variants, redirected and locked against email spoofing.":"Varian salah ketik dan ejaan, dialihkan dan dikunci dari pemalsuan email.","Content hours":"Jam konten","Changes beyond your plan's monthly allowance.":"Perubahan di luar jatah bulanan paket Anda.","Booking, WhatsApp or CRM connection":"Koneksi pemesanan, WhatsApp, atau CRM","Send enquiries straight into your booking system, CRM or WhatsApp Business.":"Kirim pertanyaan langsung ke sistem pemesanan, CRM, atau WhatsApp Business Anda.","Accessibility audit":"Audit aksesibilitas","Full WCAG 2.2 AA review with a prioritised fix list.":"Tinjauan WCAG 2.2 AA lengkap dengan daftar perbaikan berprioritas.","One-off SEO audit":"Audit SEO sekali jalan","Technical, content and local search review with a 90-day action plan.":"Tinjauan teknis, konten, dan pencarian lokal dengan rencana aksi 90 hari.","Emergency incident response":"Respons insiden darurat","Clean-up and restore after a hack, for sites not on a plan that covers it.":"Pembersihan dan pemulihan setelah peretasan, untuk website yang paketnya tidak mencakupnya.",
+"Dots show relative monthly cost. Exact pricing in rupiah, hours and response times are confirmed in your proposal.":"Titik menunjukkan biaya bulanan relatif. Harga pasti dalam rupiah, jam, dan waktu respons dikonfirmasi dalam proposal Anda.","Handover clients can move onto any plan later. Every plan starts with a short health check of the site.":"Klien Handover dapat pindah ke paket mana pun nanti. Setiap paket diawali dengan pemeriksaan singkat kondisi website."
+};
+const R=[
+[/^(\d+) AREAS$/,m=>`${m[1]} AREA`],
+[/^WE COVER (.+) OF 16 AREAS$/,m=>`KAMI TANGANI ${m[1]} DARI 16 AREA`],
+[/^(\d+) hrs$/,m=>`${m[1]} jam`],
+[/^(.+) covers (.+) of 16 areas$/,m=>`${m[1]} mencakup ${m[2]} dari 16 area`],
+[/^The smallest plan that fully handles all (\d+) areas? you ticked\.$/,m=>`Paket terkecil yang menangani sepenuhnya ${m[1]} area yang Anda centang.`],
+[/^On (\w+), you would still share or handle: (.+)\.$/,m=>`Pada paket ${m[1]}, Anda masih berbagi atau menangani: ${m[2].split(", ").map(x=>D[x]||x).join(", ")}.`]
+];
+const tx=s=>{if(D[s])return D[s];for(const[r,f]of R){const m=s.match(r);if(m)return f(m)}
+  if(s.includes(" · "))return s.split(" · ").map(p=>D[p]||p).join(" · ");
+  const i=s.indexOf(": ");if(i>0&&D[s.slice(0,i)]&&D[s.slice(i+2)])return D[s.slice(0,i)]+": "+D[s.slice(i+2)];return s};
+const dflt=(navigator.language||"").startsWith("id")?"id":"en";
+let lang=dflt;try{lang=localStorage.getItem("lang")||dflt}catch(e){}
+const orig=new WeakMap(),origA=new WeakMap();
+function applyLang(){
+  const id=lang==="id";document.documentElement.lang=lang;
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  for(let n;n=w.nextNode();){
+    if(/^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName))continue;
+    let o=orig.get(n);if(o===undefined){o=n.nodeValue;orig.set(n,o)}
+    const t=o.trim();if(t)n.nodeValue=id?o.replace(t,tx(t)):o;
+  }
+  document.querySelectorAll("[title],[aria-label]").forEach(e=>{
+    let a=origA.get(e);if(!a){a={t:e.getAttribute("title"),l:e.getAttribute("aria-label")};origA.set(e,a)}
+    if(a.t!==null)e.setAttribute("title",id?tx(a.t):a.t);
+    if(a.l!==null)e.setAttribute("aria-label",id?tx(a.l):a.l);
+  });
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===lang));
+}
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>{lang=b.dataset.l;try{localStorage.setItem("lang",lang)}catch(e){}applyLang()});
+document.getElementById("toggles").addEventListener("change",applyLang);
+applyLang();
+</script>
+
+</body></html>
